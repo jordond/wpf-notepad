@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="TextEditor.TextEditorToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:w="clr-namespace:TextEditor" Loaded="UserControl_Loaded">
+    <ToolBarTray>
+
+        <ToolBar Background="{x:Null}" ToolBar.OverflowMode="Never">
+            <Button Name="tNew" ToolBar.OverflowMode="Never" Command="w:Command.NewTab">
+                <Image Source="Resources/new.png" SnapsToDevicePixels="True" ToolTip="New file" />
+            </Button>
+            <Button Name="tOpen" Command="ApplicationCommands.Open" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/open.png" SnapsToDevicePixels="True" ToolTip="Open file..."/>
+            </Button>
+            <Button Name="tSave" Command="ApplicationCommands.Save" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/save.png" SnapsToDevicePixels="True" ToolTip="Save"/>
+            </Button>
+            <Button Name="tSaveAll" Command="ApplicationCommands.Save" CommandParameter="all" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/save-all.png" SnapsToDevicePixels="True" ToolTip="Save All"/>
+            </Button>
+            <Button Name="tClose" Command="w:Command.CloseTab" CommandParameter="current" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/close.png" SnapsToDevicePixels="True" ToolTip="Close Current file"/>
+            </Button>
+            <Button Name="tPrint" Command="ApplicationCommands.Print" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/print.png" SnapsToDevicePixels="True" ToolTip="Print..."/>
+            </Button>
+        </ToolBar>
+
+        <ToolBar Background="{x:Null}" ToolBar.OverflowMode="Never">
+            <Button Name="tCut" Command="ApplicationCommands.Cut" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/cut.png" SnapsToDevicePixels="True" ToolTip="Cut" />
+            </Button>
+            <Button Name="tCopy" Command="ApplicationCommands.Copy" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/copy.png" SnapsToDevicePixels="True" ToolTip="Copy"/>
+            </Button>
+            <Button Name="tPaste" Command="ApplicationCommands.Paste" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/paste.png" SnapsToDevicePixels="True" ToolTip="Paste"/>
+            </Button>
+            <Separator Margin="4" />
+            <Button Name="tUndo" Command="ApplicationCommands.Undo" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/undo.png" SnapsToDevicePixels="True" ToolTip="Undo"/>
+            </Button>
+            <Button Name="tRedo" Command="ApplicationCommands.Redo" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/redo.png" SnapsToDevicePixels="True" ToolTip="Redo"/>
+            </Button>
+            <Separator Margin="4"/>
+            <ComboBox x:Name="comboFont" Width="115"
+                                  ItemsSource="{x:Static Fonts.SystemFontFamilies}"
+                                  SelectionChanged="comboFont_SelectionChanged"/>
+            <ComboBox x:Name="comboSize" Width="46"
+                                  SelectionChanged="comboSize_SelectionChanged"/>
+            <Separator Margin="4" />
+            <xctk:ColorPicker Name="colorPicker" Width="120" DisplayColorAndName="True" SelectedColorChanged="colorPicked"/>
+
+            <ToggleButton Name="tBold" Command="EditingCommands.ToggleBold" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/format_bold.png" SnapsToDevicePixels="True" ToolTip="BOLD text" Height="16" Width="16"/>
+            </ToggleButton>
+            <ToggleButton Name="tItalic" Command="EditingCommands.ToggleItalic" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/format_italic.png" SnapsToDevicePixels="True" ToolTip="Italicize text" Height="16" Width="16"/>
+            </ToggleButton>
+            <ToggleButton Name="tUnderline" Command="EditingCommands.ToggleUnderline" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/format_underline.png" SnapsToDevicePixels="True" ToolTip="Underline text" Height="16" Width="16"/>
+            </ToggleButton>
+
+            <Separator Margin="4"/>
+            <RadioButton  Name="tLeft" Command="EditingCommands.AlignLeft" ToolBar.OverflowMode="Never" IsChecked="True" >
+                <Image Source="Resources/align_text_left.png" SnapsToDevicePixels="True" ToolTip="Left align text"/>
+            </RadioButton>
+            <RadioButton  Name="tCenter" Command="EditingCommands.AlignCenter" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/align_text_center.png" SnapsToDevicePixels="True" ToolTip="Center align text"/>
+            </RadioButton>
+            <RadioButton  Name="tRight" Command="EditingCommands.AlignRight" ToolBar.OverflowMode="Never" >
+                <Image Source="Resources/align_text_right.png" SnapsToDevicePixels="True" ToolTip="Right align text"/>
+            </RadioButton>
+            <RadioButton  Name="tJustify" Command="EditingCommands.AlignJustify" ToolBar.OverflowMode="Never"  >
+                <Image Source="Resources/align_text_justify.png" SnapsToDevicePixels="True" ToolTip="Justify align text"/>
+            </RadioButton>
+
+            <ToolBar Background="{x:Null}" ToolBar.OverflowMode="Always">
+                <TextBlock Text=" Zoom " VerticalAlignment="Center"/>
+                <ToolBarOverflowPanel>
+                    <Slider Name="ScaleSlider" Minimum="1.0" Maximum="10.0" Width="100" Value="1" AutoToolTipPlacement="BottomRight" IsSnapToTickEnabled="True" LargeChange="0.5" TickFrequency="0.5" ValueChanged="ScaleSlider_ValueChanged"/>
+                </ToolBarOverflowPanel>
+            </ToolBar>
+        </ToolBar>
+        
+    </ToolBarTray>
+</UserControl>

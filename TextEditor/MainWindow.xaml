@@ -1,0 +1,58 @@
+﻿<Window x:Class="TextEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:w="clr-namespace:TextEditor"
+        x:Name="mainWindow" Title="TextyEdit++" Height="608" Width="910" WindowStartupLocation="CenterScreen" Loaded="main_Loaded" ResizeMode="CanResizeWithGrip" Closing="mainWindow_Closing">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open" Executed="OpenExecuted" CanExecute="CanExecute"/>
+        <CommandBinding Command="ApplicationCommands.Print" Executed="PrintExecuted" CanExecute="CanExecute" />
+        <CommandBinding Command="ApplicationCommands.Save" Executed="SaveExecuted" CanExecute="CanSave" />
+        <CommandBinding Command="ApplicationCommands.Close" Executed="CloseExecuted" CanExecute="CanExecute" />
+        <CommandBinding Command="w:Command.NewTab" Executed="NewTabExecuted" /> 
+        <CommandBinding Command="w:Command.CloseTab" Executed="CloseTab" />
+        <CommandBinding Command="w:Command.ToggleMode" Executed="ToggleEditorMode" />
+        <CommandBinding Command="w:Command.ToggleOnTop" Executed="ToggleOnTop" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="w:Command.NewTab" Key="N" Modifiers="Control" />
+        <KeyBinding Command="w:Command.CloseTab" Key="W" Modifiers="Control" />
+        <KeyBinding Command="ApplicationCommands.Close" Key="F4" Modifiers="Alt" />
+    </Window.InputBindings>
+    <Window.Resources>
+        <RoutedUICommand x:Key="NewTab" Text="New Tab" />
+        <Style TargetType="TextBlock" x:Key="StatusBarTextBlock">
+            <Setter Property="TextWrapping" Value="NoWrap" />
+            <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+            <Setter Property="Padding" Value="2,0" />
+        </Style>
+    </Window.Resources>
+    
+    <DockPanel>
+        <w:TextEditorMenu x:Name="mainMenu" DockPanel.Dock="Top" />
+        <w:TextEditorToolBar x:Name="maintoolbar" DockPanel.Dock="Top" />
+        <StatusBar DockPanel.Dock="Bottom">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <TextBlock Style="{StaticResource StatusBarTextBlock}" VerticalAlignment="Center">Editor Mode:</TextBlock>
+                    <TextBlock Name="textMode" Style="{StaticResource StatusBarTextBlock}" VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <TextBlock Name="textStatus" Style="{StaticResource StatusBarTextBlock}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </StatusBar>
+        <TabControl x:Name="mainTabControl" Background="#FF838282" SelectionChanged="TabControl_ChangeTab">
+            <!--
+            REMNANT = delete
+                                <ScaleTransform ScaleX="{Binding ElementName=ScaleSlider, Path=Value}" ScaleY="{Binding ElementName=Scale, Path=Value}"/>
+                            -->
+        </TabControl>        
+    </DockPanel>
+</Window>
